@@ -16,9 +16,8 @@ create table Item (
     Started CHAR(20),
     Ends CHAR(20),
     Seller_UserID VARCHAR,
-    FOREIGN KEY (Seller_UserID)
-        REFERENCES User(UserID)
-    Description TEXT
+    Description VARCHAR,
+    FOREIGN KEY (Seller_UserID) REFERENCES User(UserID)
 );
 
 create table User(
@@ -33,15 +32,12 @@ create table Auction(
     UserID VARCHAR,
     Time VARCHAR,
     Amount VARCHAR,
-    PRIMARY KEY(ItemID,UserID,Time)
-    FOREIGN KEY (ItemID)
-        REFERENCES Item(ItemID),
-    FOREIGN KEY (UserID)
-        REFERENCES User(UserID)
+    PRIMARY KEY(ItemID, UserID, Time),FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
 
 create table Category(
     ItemID CHAR(10),
     Category VARCHAR,
-    PRIMARY KEY(ItemID,Category)
+    PRIMARY KEY(ItemID, Category)
 );
