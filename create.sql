@@ -16,6 +16,8 @@ create table Item (
     Started CHAR(20),
     Ends CHAR(20),
     Seller_UserID VARCHAR,
+    FOREIGN KEY (Seller_UserID)
+        REFERENCES User(UserID)
     Description TEXT
 );
 
