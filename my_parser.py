@@ -87,17 +87,38 @@ def parseJson(json_file):
             with open("item.dat",'a') as f1:
                 # item table
                 f1.write(item['ItemID'] + '|')
-                f1.write(item['Name'] + '|')
-                f1.write(transformDollar(item['Currently']) + '|')
-                if 'Buy_Price' in item:
+                if item['Name'] is None:
+                    f1.write("NULL"+ '|')
+                else:
+                    f1.write(item['Name'] + '|')
+                if item['Currently'] is None:
+                    f1.write("NULL"+ '|')
+                else:
+                    f1.write(transformDollar(item['Currently']) + '|')
+                if 'Buy_Price' in item: # this attribute could be missing
                     f1.write(transformDollar(item['Buy_Price']) + '|')
                 else:
                     f1.write("NULL" + '|')
-                f1.write(transformDollar(item['First_Bid']) + '|')
-                f1.write(item['Number_of_Bids'] + '|')
-                f1.write(transformDttm(item['Started']) + '|')
-                f1.write(transformDttm(item['Ends']) + '|')
-                f1.write(item['Seller']['UserID']+'|')
+                if item['First_Bid'] is None:
+                    f1.write("NULL"+ '|')   
+                else:           
+                    f1.write(transformDollar(item['First_Bid']) + '|')
+                if item['Number_of_Bids'] is None:
+                    f1.write("NULL"+ '|')
+                else:
+                    f1.write(item['Number_of_Bids'] + '|')
+                if item['Started'] is None:
+                    f1.write("NULL"+ '|')
+                else:
+                    f1.write(transformDttm(item['Started']) + '|')
+                if item['Ends'] is None:
+                    f1.write("NULL"+ '|')
+                else:                
+                    f1.write(transformDttm(item['Ends']) + '|')
+                if item['Seller'] is None:
+                    f1.write("NULL"+ '|')
+                else:
+                    f1.write(item['Seller']['UserID']+'|')
                 if item['Description'] is None:
                     f1.write("NULL"+ '\n')
                 else:
@@ -111,12 +132,7 @@ def parseJson(json_file):
                 f2.close()
                 # auction table
             with open("auction.dat",'a') as f3:
-                if item['Bids'] is None:
-                    f3.write(item['ItemID'] + '|')
-                    f3.write("NULL" + '|') # UserID
-                    f3.write("NULL" + '|') # Time
-                    f3.write("NULL" + '\n') # Amount
-                else:
+                if item['Bids'] is not None:
                     for bid in item['Bids']:
                         f3.write(item['ItemID'] + '|')
                         f3.write(bid['Bid']['Bidder']['UserID'] + '|')
