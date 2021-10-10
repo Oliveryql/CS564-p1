@@ -68,6 +68,14 @@ def transformDollar(money):
         return money
     return sub(r'[^\d.]', '', money)
 
+def transformStr(st):
+    # return NULL string for SQL as per spec
+    if st is None:
+        return "NULL"
+    
+    escaped_str = st.replace('"','""')
+    return '"{}"'.format(escaped_str)
+
 """
 Parses a single json file. Currently, there's a loop that iterates over each
 item in the data set. Your job is to extend this functionality to create all
@@ -90,7 +98,7 @@ def parseJson(json_file):
                 if item['Name'] is None:
                     f1.write("NULL"+ '|')
                 else:
-                    f1.write(item['Name'] + '|')
+                    f1.write(transformStr(item['Name']) + '|')
                 if item['Currently'] is None:
                     f1.write("NULL"+ '|')
                 else:
@@ -122,7 +130,7 @@ def parseJson(json_file):
                 if item['Description'] is None:
                     f1.write("NULL"+ '\n')
                 else:
-                    f1.write(item['Description'] + '\n')
+                    f1.write(transformStr(item['Description']) + '\n')
                 f1.close()
                 # category table
             with open("category.dat",'a') as f2:
@@ -143,19 +151,19 @@ def parseJson(json_file):
             with open("user.dat",'a') as f4:
                 # extract seller info first
                 f4.write(item['Seller']['UserID']+'|')
-                f4.write(item['Location']+'|')
-                f4.write(item['Country']+'|')
+                f4.write(transformStr(item['Location'])+'|')
+                f4.write(transformStr(item['Country'])+'|')
                 f4.write(item['Seller']['Rating']+'\n')
                 # extract bidder info next
                 if item['Bids'] is not None:
                     for bid in item['Bids']:
                         f4.write(bid['Bid']['Bidder']['UserID'] + '|')
                         if 'Location' in bid['Bid']['Bidder']:
-                            f4.write(bid['Bid']['Bidder']['Location'] + '|')
+                            f4.write(transformStr(bid['Bid']['Bidder']['Location']) + '|')
                         else: 
                             f4.write("NULL" + '|')
                         if 'Country' in bid['Bid']['Bidder']:
-                            f4.write(bid['Bid']['Bidder']['Country'] + '|')
+                            f4.write(transformStr(bid['Bid']['Bidder']['Country']) + '|')
                         else:
                             f4.write("NULL" + '|')
                         f4.write(bid['Bid']['Bidder']['Rating'] + '\n')
