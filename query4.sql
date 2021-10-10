@@ -1,0 +1,4 @@
+SELECT ItemID, Currently
+FROM Item
+ORDER BY CAST(Currently AS INT ) DESC
+LIMIT 1;

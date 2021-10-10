@@ -32,7 +32,8 @@ create table Auction(
     UserID VARCHAR,
     Time VARCHAR,
     Amount VARCHAR,
-    PRIMARY KEY(ItemID, UserID, Time),FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
+    PRIMARY KEY(ItemID, UserID, Time)
+    FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
 
@@ -40,4 +41,5 @@ create table Category(
     ItemID CHAR(10),
     Category VARCHAR,
     PRIMARY KEY(ItemID, Category)
+    FOREIGN KEY (ItemID) REFERENCES Item(ItemID)
 );
