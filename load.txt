@@ -3,10 +3,15 @@
 .import UniqueUser.dat User
 .import UniqueAuction.dat Auction
 .import UniqueCategory.dat Category
+
+update Item set Name = null where Name = "NULL";
+update Item set Currently = null where Currently = "NULL";
 update Item set Buy_Price = null where Buy_Price = "NULL";
+update Item set First_Bid = null where First_Bid = "NULL";
+update Item set Number_of_Bids = null where Number_of_Bids = "NULL";
+update Item set Started = null where Started = "NULL";
+update Item set Ends = null where Ends = "NULL";
+update Item set Seller_UserID = null where Seller_UserID = "NULL";
 update Item set Description = null where Description = "NULL";
 update User set Location = null where Location = "NULL";
 update User set Country = null where Country = "NULL";
-update Auction set UserID = null where UserID = "NULL";
-update Auction set Time = null where Time = "NULL";
-update Auction set Amount = null where Amount = "NULL";
