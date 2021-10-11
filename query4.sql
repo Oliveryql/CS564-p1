@@ -1,4 +1,3 @@
-SELECT ItemID, Currently
-FROM Item
-ORDER BY CAST(Currently AS INT ) DESC
-LIMIT 1;
+SELECT ItemID 
+FROM Item 
+WHERE CAST(Currently AS INT ) = (SELECT MAX(CAST(Currently AS INT)) FROM Item);
